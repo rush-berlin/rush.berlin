@@ -51,6 +51,7 @@ body {
   from {background-color: var(--yellow);}
   to {background-color: var(--green);}
 }
+
 nav {
   background-color: var(--yellow);
   animation: breathe 2s linear 2s infinite alternate none;
@@ -59,6 +60,7 @@ nav {
   display: flex;
   justify-content: center;
   padding: 1rem 0;
+  border-radius: .5rem;
 }
 
 @media (prefers-reduced-motion) {
