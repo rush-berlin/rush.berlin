@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+/* 
+  Modern CSS Reset by Josh W Comeau
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+#root, #__next {
+  isolation: isolate;
+}
+/* //////// */
+
+:root {
+  --green: #96EC92;
+  --yellow: #FEF582;
+  --white: #FFFFFF;
+  --gray: #EEEBE9;
+  --black: #000000;
+  --black-fade: #00000033;
+}
+
+body {
+  background-color: var(--gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* nav styles */
+@keyframes breathe {
+  from {background-color: var(--yellow);}
+  to {background-color: var(--green);}
+}
+nav {
+  background-color: var(--yellow);
+  animation: breathe 2s linear 2s infinite alternate none;
+  width: 100vw;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+@media (prefers-reduced-motion) {
+  nav {
+    animation: none;
+  }
+}
+
+/* linktree styles */
+ul.linktree {
+  list-style-type: none;
+  width: 100vw;
+  max-width: 800px;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+ul.linktree li:not(:first-child) {
+  margin: .5rem 0;
+}
+
+ul.linktree li a {
+  display: block;
+  width: inherit;
+  padding: 1rem;
+  border: 1px solid var(--black);
+  border-radius: .25rem;
+  color: var(--black);
+  text-decoration-color: var(--black-fade);
+  transition: all .25s;
+}
+
+ul.linktree li a:hover,
+ul.linktree li a:focus {
+  background-color: var(--yellow);
+  text-decoration-color: var(--black);
+}
