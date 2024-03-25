@@ -93,6 +93,12 @@ ul.linktree li a {
   transition: all .25s;
 }
 
+@media (prefers-reduced-motion) {
+  nav {
+    transition: none;
+  }
+}
+
 ul.linktree li a:hover,
 ul.linktree li a:focus {
   background-color: var(--yellow);
