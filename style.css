@@ -90,13 +90,6 @@ ul.linktree li a {
   border-radius: 0 0 .25rem .25rem;
   color: var(--black);
   text-decoration-color: var(--black-fade);
-  transition: all .25s;
-}
-
-@media (prefers-reduced-motion) {
-  nav {
-    transition: none;
-  }
 }
 
 ul.linktree li a:hover,
