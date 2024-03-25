@@ -60,7 +60,7 @@ nav {
   display: flex;
   justify-content: center;
   padding: 1rem 0;
-  border-radius: .5rem;
+  border-radius: 0 0 .5rem .5rem;
 }
 
 @media (prefers-reduced-motion) {
@@ -87,7 +87,7 @@ ul.linktree li a {
   width: inherit;
   padding: 1rem;
   border: 1px solid var(--black);
-  border-radius: .25rem;
+  border-radius: 0 0 .25rem .25rem;
   color: var(--black);
   text-decoration-color: var(--black-fade);
   transition: all .25s;
