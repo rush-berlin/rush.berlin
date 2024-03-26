@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="manifest" href="../assets/site.webmanifest">
+  <title>Rush Berlin</title>
+</head>
+
+<body>
+
+  <nav>
+    <h1>
+      <a href="/">
+        <img src="../assets/logo.png" alt="Rush Logo" srcset="" height="100px">
+      </a>
+    </h1>
+  </nav>
+
+  <main>
+    <ul id="podcasts">
+      <li>
+        <article>
+          <div>
+            <h2>...</h2>
+            <audio src="" controls></audio>
+          </div>
+          <p>...</p>
+        </article>
+      </li>
+    </ul>
+    <aside id="aside"></aside>
+  </main>
+
+  <script>
+    const RSS_URL = `http://127.0.0.1:5500/podcast/feed-test.rss`;
+    const aside = document.getElementById('aside');
+    const podcasts = document.getElementById('podcasts');
+    const placeholderHTML = podcasts.innerHTML;
+
+    const episodes = [];
+
+    const addEpisode = item => {
+      const title = item.getElementsByTagName('title')[0].textContent;
+      const description = item.getElementsByTagName('description')[0].textContent;
+      const src = item.getElementsByTagName('enclosure')[0].getAttribute('url');
+      const permalink = item.getElementsByTagName('link')[0].textContent;
+      const episode = item.getElementsByTagName('itunes:episode')[0].textContent;
+
+      episodes.push({
+        title,
+        description,
+        src,
+        permalink,
+        episode,
+      })
+    }
+
+    const episodeHtml = ({ title, description, src, permalink }) => `
+      <li>
+        <article>
+          <div>
+            <h2>${title}</h2>
+            <audio src="${src}" controls></audio>
+          </div>
+          <div>
+            <p>${description}</p>
+            <a href="${permalink}">
+              permalink
+            </a>
+          </div>
+        </article>
+      </li>
+    `;
+
+    const render = () => {
+      let listHTML = '';
+      let usePlaceholder = true;
+
+      const renderItem = ({ title, description, src, permalink }) => {
+        usePlaceholder = false;
+
+        listHTML += episodeHtml({
+          title, description, src, permalink
+        });
+      }
+
+      if (window.location.hash.length > 1) {
+        const hash = window.location.hash.slice(1);
+        const episode = episodes.find(episode => episode.episode === hash);
+        renderItem(episode);
+
+        const allPodcastsLink = document.createElement('a');
+        allPodcastsLink.href = '#';
+        allPodcastsLink.innerText = 'All Episodes'
+        aside.appendChild(allPodcastsLink);
+      } else {
+        episodes.forEach(renderItem)
+        aside.innerHTML = '';
+      };
+
+      if (usePlaceholder) {
+        podcasts.innerHTML = placeholderHTML;
+      } else {
+        podcasts.innerHTML = listHTML;
+      }
+    };
+
+    fetch(RSS_URL)
+      .then(response => response.text())
+      .then(xml => new window.DOMParser().parseFromString(xml, "text/xml"))
+      .then(data => Array.from(data.getElementsByTagName('item')))
+      .then(items => {
+        items.forEach(addEpisode);
+        render();
+
+        window.addEventListener('hashchange', (event) => {
+          setTimeout(() => {
+            render();
+          }, 1);
+        })
+      });
+
+  </script>
+
+</body>
+
+</html>

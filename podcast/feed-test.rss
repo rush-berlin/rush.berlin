@@ -22,11 +22,43 @@
     <itunes:author>Rush Berlin</itunes:author>
 
     <item>
-      <title>Edos</title>
+      <title>Edos 1</title>
       <enclosure length="1164015" type="audio/mpeg"
         url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
       <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
-      <guid>todo</guid>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>1</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#1</link>
+    </item>
+
+    <item>
+      <title>Edos 2</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>2</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#2</link>
+    </item>
+
+    <item>
+      <title>Edos 3</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>3</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#3</link>
+    </item>
+
+    <item>
+      <title>Edos 4</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>4</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#4</link>
     </item>
 
   </channel>
