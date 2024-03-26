@@ -20,6 +20,15 @@
     <itunes:image href="https://rush.berlin/podcast/logo.png" />
     <podcast:guid>59a4e429-563d-504b-8233-f92da0937983</podcast:guid>
     <itunes:author>Rush Berlin</itunes:author>
+
+    <item>
+      <title>Edos</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
+      <guid>todo</guid>
+    </item>
+
   </channel>
 
 </rss>
