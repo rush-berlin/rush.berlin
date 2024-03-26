@@ -69,8 +69,8 @@ nav {
   }
 }
 
-/* linktree styles */
-ul.linktree {
+/* list styles */
+ul {
   list-style-type: none;
   width: 100vw;
   max-width: 800px;
@@ -78,11 +78,11 @@ ul.linktree {
   padding: 0;
 }
 
-ul.linktree li:not(:first-child) {
+ul li:not(:first-child) {
   margin: .5rem 0;
 }
 
-ul.linktree li a {
+ul li > a {
   display: block;
   width: inherit;
   padding: 1rem;
@@ -92,8 +92,8 @@ ul.linktree li a {
   text-decoration-color: var(--black-fade);
 }
 
-ul.linktree li a:hover,
-ul.linktree li a:focus {
+ul li > a:hover,
+ul li > a:focus {
   background-color: var(--yellow);
   text-decoration-color: var(--black);
 }
