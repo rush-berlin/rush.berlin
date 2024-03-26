@@ -82,7 +82,8 @@ ul li:not(:first-child) {
   margin: .5rem 0;
 }
 
-ul li > a {
+ul li > a,
+ul li article {
   display: block;
   width: inherit;
   padding: 1rem;
@@ -96,4 +97,15 @@ ul li > a:hover,
 ul li > a:focus {
   background-color: var(--yellow);
   text-decoration-color: var(--black);
+}
+
+ul li article {
+  display: flex;
+  flex-direction: column;
+}
+
+ul li article > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
