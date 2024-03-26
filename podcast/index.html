@@ -24,6 +24,9 @@
   </nav>
 
   <main>
+    <aside>
+      <a href="https://rush.berlin/podcast/feed.rss">feed</a>
+    </aside>
     <ul id="podcasts">
       <li>
         <article>
@@ -35,7 +38,9 @@
         </article>
       </li>
     </ul>
-    <aside id="aside"></aside>
+    <aside id="aside">
+      <a href="#">all episodes</a>
+    </aside>
   </main>
 
   <script>
@@ -70,7 +75,7 @@
             <audio src="${src}" controls></audio>
           </div>
           <div>
-            <p>${description}</p>
+            <div>${description}</div>
             <a href="${permalink}">
               permalink
             </a>
@@ -82,6 +87,7 @@
     const render = () => {
       let listHTML = '';
       let usePlaceholder = true;
+      aside.hidden = true;
 
       const renderItem = ({ title, description, src, permalink }) => {
         usePlaceholder = false;
@@ -96,13 +102,9 @@
         const episode = episodes.find(episode => episode.episode === hash);
         renderItem(episode);
 
-        const allPodcastsLink = document.createElement('a');
-        allPodcastsLink.href = '#';
-        allPodcastsLink.innerText = 'All Episodes'
-        aside.appendChild(allPodcastsLink);
+        aside.hidden = false;
       } else {
-        episodes.forEach(renderItem)
-        aside.innerHTML = '';
+        episodes.forEach(renderItem);
       };
 
       if (usePlaceholder) {

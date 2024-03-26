@@ -109,3 +109,10 @@ ul li article > div {
   flex-direction: row;
   justify-content: space-between;
 }
+
+
+aside {
+  text-align: right;
+  margin-top: 1rem;
+  padding: 0 calc(1rem + 1px);
+}
