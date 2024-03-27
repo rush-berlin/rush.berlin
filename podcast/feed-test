@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:podcast="https://podcastindex.org/namespace/1.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+  <channel>
+    <atom:link href="https://rush.berlin/podcast/feed" rel="self" type="application/rss+xml" />
+    <title>Rush Replay</title>
+    <description>Rush hosts monthly DJ livestreams from Berlin. Tune in or come hang!</description>
+    <link>https://rush.berlin/podcast</link>
+    <language>en-us</language>
+    <itunes:category text="Music">
+      <itunes:category text="Music Interviews" />
+    </itunes:category>
+    <itunes:category text="Art">
+      <itunes:category text="Performing Arts" />
+    </itunes:category>
+    <itunes:explicit>true</itunes:explicit>
+    <itunes:image href="https://rush.berlin/podcast/logo.png" />
+    <podcast:guid>59a4e429-563d-504b-8233-f92da0937983</podcast:guid>
+    <itunes:author>Rush Berlin</itunes:author>
+
+    <item>
+      <title>Edos 1</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[
+        <a href="https://rush.berlin">Sample episode description.</a>
+        <p>The first episode of the podcast, blah blah blae podcast, blah blah blae podcast, blah blah blae podcast, blah blah blah.</p>
+      ]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>1</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#1</link>
+    </item>
+
+    <item>
+      <title>Edos 2</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[
+        <b>do whatever you want I guess</b>
+        <p>nothing seems to matter anyway</p>
+      ]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>2</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#2</link>
+    </item>
+
+    <item>
+      <title>Edos 3</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>3</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#3</link>
+    </item>
+
+    <item>
+      <title>Edos 4</title>
+      <enclosure length="1164015" type="audio/mpeg"
+        url="http://127.0.0.1:5500/podcast/mp3/edos.mp3" />
+      <description><![CDATA[<a href="https://rush.berlin">Sample episode description.</a>]]></description>
+      <guid>149e7398-35b5-543a-a70c-d018fb145bb7</guid>
+      <itunes:episode>4</itunes:episode>
+      <link>http://127.0.0.1:5500/podcast/#4</link>
+    </item>
+
+  </channel>
+
+</rss>
