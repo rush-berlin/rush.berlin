@@ -29,9 +29,9 @@
     </aside>
     <ul id="podcasts">
       <li>
-        <article>
+        <article class="loading">
           <div>
-            <h2>...</h2>
+            <h2>Loading ...</h2>
             <audio src="" controls></audio>
           </div>
           <p>...</p>
@@ -43,85 +43,52 @@
     </aside>
   </main>
 
+  <script src="/scripts/redirect.js"></script>
+  <script src="/podcast/scripts/load-rss.js"></script>
+  <script src="/podcast/scripts/render-rss.js"></script>
   <script>
-    const RSS_URL = `http://127.0.0.1:5500/podcast/feed-test`;
-    const aside = document.getElementById('aside');
-    const podcasts = document.getElementById('podcasts');
-    const placeholderHTML = podcasts.innerHTML;
-
     const episodes = [];
 
-    const addEpisode = item => {
-      const title = item.getElementsByTagName('title')[0].textContent;
-      const description = item.getElementsByTagName('description')[0].textContent;
-      const src = item.getElementsByTagName('enclosure')[0].getAttribute('url');
-      const permalink = item.getElementsByTagName('link')[0].textContent;
-      const episode = item.getElementsByTagName('itunes:episode')[0].textContent;
+    const render = renderer({
+      episodes,
+      container: document.getElementById('podcasts'),
+      goBackLink: document.getElementById('aside'),
+      episodeHtml: ({ title, description, src, permalink }) => `
+        <li>
+          <article>
+            <div>
+              <h2>${title}</h2>
+              <audio src="${src}" controls></audio>
+            </div>
+            <div>
+              <div>${description}</div>
+              <a href="${permalink}">
+                permalink
+              </a>
+            </div>
+          </article>
+        </li>
+      `,
+    });
 
-      episodes.push({
-        title,
-        description,
-        src,
-        permalink,
-        episode,
-      })
-    }
-
-    const episodeHtml = ({ title, description, src, permalink }) => `
-      <li>
-        <article>
-          <div>
-            <h2>${title}</h2>
-            <audio src="${src}" controls></audio>
-          </div>
-          <div>
-            <div>${description}</div>
-            <a href="${permalink}">
-              permalink
-            </a>
-          </div>
-        </article>
-      </li>
-    `;
-
-    const render = () => {
-      let listHTML = '';
-      let usePlaceholder = true;
-      aside.hidden = true;
-
-      const renderItem = ({ title, description, src, permalink }) => {
-        usePlaceholder = false;
-
-        listHTML += episodeHtml({
-          title, description, src, permalink
-        });
-      }
-
-      if (window.location.hash.length > 1) {
-        const hash = window.location.hash.slice(1);
-        const episode = episodes.find(episode => episode.episode === hash);
-        renderItem(episode);
-
-        aside.hidden = false;
-      } else {
-        episodes.forEach(renderItem);
-      };
-
-      if (usePlaceholder) {
-        podcasts.innerHTML = placeholderHTML;
-      } else {
-        podcasts.innerHTML = listHTML;
-      }
-    };
-
-    fetch(RSS_URL)
-      .then(response => response.text())
-      .then(xml => new window.DOMParser().parseFromString(xml, "text/xml"))
-      .then(data => Array.from(data.getElementsByTagName('item')))
+    load('/podcast/feed-test')
+      // load('/podcast/feed')
       .then(items => {
-        items.forEach(addEpisode);
-        render();
-
+        items.map(item => ({
+          title: item.getElementsByTagName('title')[0].textContent,
+          description: item.getElementsByTagName('description')[0].textContent,
+          src: item.getElementsByTagName('enclosure')[0].getAttribute('url'),
+          permalink: item.getElementsByTagName('link')[0].textContent,
+          episode: item.getElementsByTagName('itunes:episode')[0].textContent,
+        })).forEach(item => episodes.push(item));
+      })
+      // for debugging:
+      // .catch((e) => {
+      //   debugger;
+      //   alert(e);
+      // })
+      .then(render)
+      .then(() => {
         window.addEventListener('hashchange', (event) => {
           setTimeout(() => {
             render();

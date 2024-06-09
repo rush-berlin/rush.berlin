@@ -63,12 +63,6 @@ nav {
   border-radius: 0 0 .5rem .5rem;
 }
 
-@media (prefers-reduced-motion) {
-  nav {
-    animation: none;
-  }
-}
-
 /* list styles */
 ul {
   list-style-type: none;
@@ -110,9 +104,25 @@ ul li article > div {
   justify-content: space-between;
 }
 
+@keyframes loading {
+  0% {opacity: 1;}
+  50% {opacity: 0.5;}
+  100% {opacity: 0.4;}
+}
+
+ul li article.loading {
+  animation: loading 1s linear 0s infinite alternate none;
+}
 
 aside {
   text-align: right;
   margin-top: 1rem;
   padding: 0 calc(1rem + 1px);
+}
+
+
+@media (prefers-reduced-motion) {
+  * {
+    animation: none !important;
+  }
 }
