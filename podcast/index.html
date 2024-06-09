@@ -71,8 +71,8 @@
       `,
     });
 
-    load('/podcast/feed-test')
-      // load('/podcast/feed')
+    // load('/podcast/feed-test')
+    load('/podcast/feed')
       .then(items => {
         items.map(item => ({
           title: item.getElementsByTagName('title')[0].textContent,
