@@ -28,7 +28,7 @@
       <!-- <li>
         <a href="/podcast">Listen to the <b>Rush Replay</b> podcast.</a>
       </li> -->
-      <li>
+      <li id="livestream" hidden>
         <a href="https://rush.berlin/live" target="_blank">Watch the <b>Rush Livestream</b></a>
       </li>
       <li>
@@ -39,6 +39,19 @@
       </li>
     </ul>
   </main>
+
+  <script>
+    fetch('https://stream.rush.berlin/api/v0.2/streams/')
+      .then(res => res.json())
+      .then(out => {
+        for (let stream in out.streams) {
+          if (stream.name === 'stream' && stream.app === 'live') {
+            document.getElementById('livestream').hidden = false;
+          }
+        }
+      })
+      .catch(err => { console.error(err) });
+  </script>
 
   <script src="/scripts/redirect.js"></script>
 
