@@ -96,6 +96,42 @@ ul li > a:focus {
   text-decoration-color: var(--black);
 }
 
+.circle {
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+.live-indicator-holder {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.live-indicator-holder .indicator {
+  font-family: sans-serif;
+  background: #ea2429;
+  color: #FFF;
+  padding: 6px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+}
+.live-indicator-holder .indicator .blink {
+  animation: blinker 1.2s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker {
+  from {
+    opacity: 0.9;
+  }
+to {
+    opacity: 0.1;
+  }
+}
+
 ul li article {
   display: flex;
   flex-direction: column;
