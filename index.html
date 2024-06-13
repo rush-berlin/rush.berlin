@@ -44,7 +44,7 @@
     fetch('https://stream.rush.berlin/api/v0.2/streams/')
       .then(res => res.json())
       .then(out => {
-        for (let stream in out.streams) {
+        for (let stream of out.streams) {
           if (stream.name === 'stream' && stream.app === 'live') {
             document.getElementById('livestream').hidden = false;
           }
