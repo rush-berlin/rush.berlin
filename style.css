@@ -81,6 +81,7 @@ ul li:not(:first-child) {
 
 ul li > a,
 ul li article {
+  position: relative;
   display: block;
   width: inherit;
   padding: 1rem;
@@ -104,22 +105,26 @@ ul li > a:focus {
   display: inline-block;
   margin-right: 5px;
 }
+
 .live-indicator-holder {
   position: absolute;
-  left: 50%;
+  right: 1rem;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(0, -50%);
 }
+
 .live-indicator-holder .indicator {
   font-family: sans-serif;
   background: #ea2429;
   color: #FFF;
-  padding: 6px 7px;
-  border-radius: 6px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   text-transform: uppercase;
   font-weight: bold;
   display: flex;
+  align-items: center;
 }
+
 .live-indicator-holder .indicator .blink {
   animation: blinker 1.2s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
 }
