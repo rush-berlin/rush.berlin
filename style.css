@@ -134,8 +134,10 @@ aside {
 /* /live iframe styles */
 .stream-wrapper {
   overflow: hidden;
+  margin-top: 1rem;
   padding-top: 56.25%;
   position: relative;
+  border-radius: 0.5rem;
 }
 
 .stream-wrapper iframe {
