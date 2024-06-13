@@ -117,8 +117,8 @@ ul li > a:focus {
   font-family: sans-serif;
   background: #ea2429;
   color: #FFF;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
   text-transform: uppercase;
   font-weight: bold;
   display: flex;
