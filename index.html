@@ -69,7 +69,7 @@
       if (isStreamActive) {
         document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
       }
-      setUpdateInterval(isStreamActive ? 10000 : 2000);
+      streamObserver.setUpdateInterval(isStreamActive ? 10000 : 2000);
     });
   </script>
 
