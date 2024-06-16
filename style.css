@@ -176,13 +176,8 @@ aside {
   align-items: baseline;
 }
 
-.livestream-header a {
-  text-decoration: none;
-  color: #fff;
-}
 
-
-/* /live iframe styles */
+/* iframe styles */
 .stream-wrapper {
   background-color: #000;
   overflow: hidden;
