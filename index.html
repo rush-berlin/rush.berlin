@@ -51,7 +51,7 @@
   <script src="/scripts/stream-observer.js"></script>
   <script>
 
-    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 20000);
+    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 5000);
 
     streamObserver.addEventListener('update', () => {
       const isStreamActive = streamObserver.isActive('stream');
