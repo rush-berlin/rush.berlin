@@ -68,7 +68,7 @@
       const isStreamActive = streamObserver.isActive('stream');
       document.getElementById('livestream').hidden = !isStreamActive;
       if (isStreamActive) {
-        document.getElementById('livestream').contentWindow.location.reload();
+        document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
       }
     });
   </script>
