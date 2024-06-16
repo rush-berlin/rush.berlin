@@ -184,6 +184,7 @@ aside {
 
 /* /live iframe styles */
 .stream-wrapper {
+  background-color: #000;
   overflow: hidden;
   margin-top: 1rem;
   padding-top: 56.25%;
