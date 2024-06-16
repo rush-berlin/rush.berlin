@@ -47,10 +47,10 @@
       <h2>Linktree</h2>
       <ul>
         <li>
-          <a href="https://instagram.com/rush_berlin" target="_blank">Follow <b>@rush_berlin</b> on Instagram</a>
+          <a href="https://www.youtube.com/@rush.berlin" target="_blank">Watch <b>@rush.berlin</b> on YouTube</a>
         </li>
         <li>
-          <a href="https://www.youtube.com/@rush.berlin" target="_blank">Stream <b>@rush.berlin</b> on YouTube</a>
+          <a href="https://instagram.com/rush_berlin" target="_blank">Follow <b>@rush_berlin</b> on Instagram</a>
         </li>
         <li>
           <a href="https://ra.co/promoters/136789" target="_blank">Follow <b>Rush Berlin</b> on Resident Advisor</a>
@@ -61,7 +61,7 @@
 
   <script type="module">
     import { StreamObserver } from '/scripts/stream-observer.js';
-    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/');
+    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 2000);
 
     streamObserver.addEventListener('update', () => {
       const isStreamActive = streamObserver.isActive('stream');
@@ -69,6 +69,7 @@
       if (isStreamActive) {
         document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
       }
+      setUpdateInterval(isStreamActive ? 10000 : 2000);
     });
   </script>
 

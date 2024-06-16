@@ -42,6 +42,7 @@ export class StreamObserver extends EventTarget {
 
   updateStreamList = (newStreams = []) => {
     if (!areStreamListsEquivalent(this.streams, newStreams)) {
+      console.log("stream list changed", newStreams);
       this.streams = newStreams;
       this.dispatchStreamUpdate();
     }
@@ -51,6 +52,7 @@ export class StreamObserver extends EventTarget {
     clearInterval(this.interval);
     this.interval = setInterval(this.updateStreams, newInterval);
     this.updateStreams();
+    console.log("new update interval", newInterval);
   };
 
   isActive = (streamName) => {
@@ -63,6 +65,7 @@ export class StreamObserver extends EventTarget {
   };
 
   dispatchStreamUpdate = () => {
+    console.log("dispatchStreamUpdate()");
     this.dispatchEvent(new Event("update"));
   };
 }
