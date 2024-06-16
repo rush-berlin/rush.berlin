@@ -71,6 +71,13 @@
       }
       streamObserver.setUpdateInterval(isStreamActive ? 10000 : 2000);
     });
+
+    window.addEventListener('message', event => {
+      console.log(event);
+      if (event.origin === 'https://stream.rush.berlin') {
+        streamObserver.setUpdateInterval(200);
+      }
+    }, false);
   </script>
 
   <script src="/scripts/redirect.js"></script>
