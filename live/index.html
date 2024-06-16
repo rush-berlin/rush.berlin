@@ -25,11 +25,14 @@
   </nav>
 
   <main id="main">
-    <div class="stream-wrapper">
-      <div id="loader"></div>
-      <iframe id="livestream" hidden src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true"
-        webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-    </div>
+    <section>
+      <h2>Rush Livestream</h2>
+      <div class="stream-wrapper">
+        <div id="loader"></div>
+        <iframe id="livestream" hidden src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true"
+          webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      </div>
+    </section>
   </main>
 
   <script type="module">
@@ -62,6 +65,10 @@
     function updateUI(isStreamActive) {
       document.getElementById('loader').hidden = isStreamActive;
       document.getElementById('livestream').hidden = !isStreamActive;
+
+      if (isStreamActive) {
+        document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
+      }
     }
 
     function goHome() {
