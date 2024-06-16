@@ -44,7 +44,7 @@ class StreamObserver extends EventTarget {
     setInterval(this.updateStreams, interval);
   }
 
-  updateStreams() {
+  updateStreams = () => {
     fetchWithTimeout(this.url, { timeout: this.timeout })
       .then((res) => res.json())
       .then((out) => {
@@ -54,25 +54,25 @@ class StreamObserver extends EventTarget {
         console.error(err);
         this.updateStreamList();
       });
-  }
+  };
 
-  updateStreamList(newStreams = []) {
+  updateStreamList = (newStreams = []) => {
     if (!areStreamListsEquivalent(this.streams, newStreams)) {
       this.streams = newStreams;
       this.dispatchStreamUpdate();
     }
-  }
+  };
 
-  isActive(streamName) {
+  isActive = (streamName) => {
     for (let stream of out.streams) {
       if (stream.name === streamName && stream.app === "live") {
         return true;
       }
     }
     return false;
-  }
+  };
 
-  dispatchStreamUpdate() {
+  dispatchStreamUpdate = () => {
     this.dispatchEvent(new Event("update"));
-  }
+  };
 }
