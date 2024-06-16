@@ -64,7 +64,7 @@ class StreamObserver extends EventTarget {
   };
 
   isActive = (streamName) => {
-    for (let stream of out.streams) {
+    for (let stream of this.streams) {
       if (stream.name === streamName && stream.app === "live") {
         return true;
       }
