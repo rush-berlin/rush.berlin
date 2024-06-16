@@ -75,7 +75,7 @@
     window.addEventListener('message', event => {
       console.log(event);
       if (event.origin === 'https://stream.rush.berlin') {
-        streamObserver.setUpdateInterval(200);
+        streamObserver.setUpdateInterval(500);
       }
     }, false);
   </script>
