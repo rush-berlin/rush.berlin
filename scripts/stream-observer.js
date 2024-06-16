@@ -29,6 +29,7 @@ export class StreamObserver extends EventTarget {
   }
 
   updateStreams = () => {
+    console.log("checking streams API");
     fetchWithTimeout(this.url, { timeout: this.timeout })
       .then((res) => res.json())
       .then((out) => {
