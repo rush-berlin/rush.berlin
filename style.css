@@ -176,6 +176,11 @@ aside {
   align-items: baseline;
 }
 
+.livestream-header a {
+  text-decoration: none;
+  color: #fff;
+}
+
 
 /* /live iframe styles */
 .stream-wrapper {
