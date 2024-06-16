@@ -54,8 +54,8 @@
           <a href="https://ra.co/promoters/136789" target="_blank">Follow <b>Rush Berlin</b> on Resident Advisor</a>
         </li>
         <li>
-          <a href="https://www.gofundme.com/f/help-rush-berlin-buy-equipment-and-pay-rent" target="_blank">Support
-            <b>Rush Berlin</b> on GoFundMe</a>
+          <a href="https://www.gofundme.com/f/help-rush-berlin-buy-equipment-and-pay-rent" target="_blank">Help Rush
+            sustain itself</a>
         </li>
       </ul>
     </section>
@@ -63,7 +63,7 @@
 
   <script type="module">
     import { StreamObserver } from '/scripts/stream-observer.js';
-    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 2000);
+    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 500, 2000);
 
     streamObserver.addEventListener('update', () => {
       const isStreamActive = streamObserver.isActive('stream');
@@ -71,13 +71,13 @@
       if (isStreamActive) {
         document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
       }
-      streamObserver.setUpdateInterval(isStreamActive ? 10000 : 2000);
+      streamObserver.setUpdateInterval(isStreamActive ? 30000 : 2000);
     });
 
     window.addEventListener('message', event => {
       console.log(event);
       if (event.origin === 'https://stream.rush.berlin') {
-        streamObserver.setUpdateInterval(1000);
+        streamObserver.setUpdateInterval(500);
       }
     }, false);
   </script>
