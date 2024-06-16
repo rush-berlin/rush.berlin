@@ -26,18 +26,27 @@
   </nav>
 
   <main>
-    <section>
-      <ul>
-        <li id="livestream" hidden>
+    <section id="livestream-wrapper" hidden>
+      <div class="livestream-header">
+        <h2>Rush Livestream</h2>
+        <div class="live-indicator-holder">
           <a href="https://rush.berlin/live">
-            Watch the <b>Rush Livestream</b>
-            <div class="live-indicator-holder">
-              <span class="indicator">
-                <div class="circle blink" aria-hidden="true"></div>streaming
-              </span>
-            </div>
+            <span class="indicator">
+              <div class="circle blink" aria-hidden="true"></div>live
+            </span>
           </a>
-        </li>
+        </div>
+      </div>
+
+      <div class="stream-wrapper">
+        <div id="loader"></div>
+        <iframe id="livestream" hidden src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true"
+          webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+      </div>
+    </section>
+    <section>
+      <h2>linktree</h2>
+      <ul>
         <li>
           <a href="https://instagram.com/rush_berlin" target="_blank">Follow <b>@rush_berlin</b> on Instagram</a>
         </li>
@@ -58,6 +67,9 @@
     streamObserver.addEventListener('update', () => {
       const isStreamActive = streamObserver.isActive('stream');
       document.getElementById('livestream').hidden = !isStreamActive;
+      if (isStreamActive) {
+        document.getElementById('livestream').contentWindow.location.reload();
+      }
     });
   </script>
 
