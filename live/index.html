@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./live.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
@@ -22,13 +23,41 @@
     </h1>
   </nav>
 
-  <main>
+  <main id="main">
     <div class="stream-wrapper">
-      <iframe src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true"
-        mozallowfullscreen="true"></iframe>
+      <div id="loader"></div>
+      <iframe id="livestream" hidden src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true"
+        webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
     </div>
   </main>
 
+  <script src="/scripts/fetch-with-timeout.js"></script>
+  <script>
+    const goHome = () => {
+      document.getElementById('main').innerHTML = `
+        <p style="margin-top: 1rem; text-align: center;">No stream found. Redirecting...</p>
+      `;
+
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 2000);
+    }
+
+    fetchWithTimeout('https://stream.rush.berlin/api/v0.2/streams/', { timeout: 4000 })
+      .then(res => res.json())
+      .then(out => {
+        for (let stream of out.streams) {
+          if (stream.name === 'stream' && stream.app === 'live') {
+            document.getElementById('loader').hidden = true;
+            document.getElementById('livestream').hidden = false;
+            return;
+          }
+        }
+
+        throw new Error('no live stream');
+      })
+      .catch(() => goHome());
+  </script>
 </body>
 
 </html>

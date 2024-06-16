@@ -170,22 +170,3 @@ aside {
     animation: none !important;
   }
 }
-
-
-/* /live iframe styles */
-.stream-wrapper {
-  overflow: hidden;
-  margin-top: 1rem;
-  padding-top: 56.25%;
-  position: relative;
-  border-radius: 0.5rem;
-}
-
-.stream-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: 0;
-  width: 100%;
-  height: 100%;
-}
