@@ -110,13 +110,6 @@ ul li > a:focus {
   margin-right: 5px;
 }
 
-.live-indicator-holder {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-
 .live-indicator-holder .indicator {
   font-family: sans-serif;
   background: #ea2429;
@@ -176,7 +169,12 @@ aside {
 }
 
 
-
+/* / iframe styles */
+.livestream-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
 
 
 /* /live iframe styles */
