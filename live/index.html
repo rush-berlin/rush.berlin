@@ -33,32 +33,41 @@
     </div>
   </main>
 
-  <script src="/scripts/fetch-with-timeout.js"></script>
+  <script src="/scripts/stream-observer.js"></script>
   <script>
     const goHome = () => {
       document.getElementById('main').innerHTML = `
-        <p style="margin-top: 1rem; text-align: center;">No stream found. Redirecting...</p>
+        <p style="margin-top: 2rem; text-align: center;">No stream found. Redirecting...</p>
       `;
 
       setTimeout(() => {
         window.location.replace('/');
-      }, 2000);
+      }, 4000);
     }
 
-    fetchWithTimeout('https://stream.rush.berlin/api/v0.2/streams/', { timeout: 10000 })
-      .then(res => res.json())
-      .then(out => {
-        for (let stream of out.streams) {
-          if (stream.name === 'stream' && stream.app === 'live') {
-            document.getElementById('loader').hidden = true;
-            document.getElementById('livestream').hidden = false;
-            return;
-          }
-        }
+    let waitingForStream = false;
+    let redirectTimeout = 0;
+    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 60000);
 
-        throw new Error('no live stream');
-      })
-      .catch(() => goHome());
+    streamObserver.addEventListener('update', () => {
+      const isStreamActive = streamObserver.isActive('stream');
+      updateUI(isStreamActive);
+
+      if (!waitingForStream && !isStreamActive) {
+        waitingForStream = true;
+        redirectTimeout = setTimeout(() => {
+          goHome();
+        }, 8000)
+      } else if (waitingForStream && isStreamActive) {
+        waitingForStream = false;
+        clearTimeout(redirectTimeout);
+      }
+    });
+
+    function updateUI(isStreamActive) {
+      document.getElementById('loader').hidden = isStreamActive;
+      document.getElementById('livestream').hidden = !isStreamActive;
+    }
   </script>
 </body>
 

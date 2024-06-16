@@ -48,28 +48,15 @@
     </section>
   </main>
 
-  <script src="/scripts/fetch-with-timeout.js"></script>
+  <script src="/scripts/stream-observer.js"></script>
   <script>
 
-    function updateStreamLink(timeout) {
-      fetchWithTimeout('https://stream.rush.berlin/api/v0.2/streams/', timeout)
-        .then(res => res.json())
-        .then(out => {
-          for (let stream of out.streams) {
-            if (stream.name === 'stream' && stream.app === 'live') {
-              document.getElementById('livestream').hidden = false;
-              return;
-            }
-          }
-          document.getElementById('livestream').hidden = true;
-        })
-        .catch(err => { console.error(err) });
-    }
+    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 20000);
 
-    updateStreamLink(10000);
-    setInterval(() => {
-      updateStreamLink(1000);
-    }, 60000)
+    streamObserver.addEventListener('update', () => {
+      const isStreamActive = streamObserver.isActive('stream');
+      document.getElementById('livestream').hidden = !isStreamActive;
+    });
   </script>
 
   <script src="/scripts/redirect.js"></script>
