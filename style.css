@@ -66,6 +66,10 @@ nav {
   border-radius: 0 0 .5rem .5rem;
 }
 
+section {
+  margin-top: 1rem;
+}
+
 /* list styles */
 ul {
   list-style-type: none;
