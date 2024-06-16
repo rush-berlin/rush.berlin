@@ -46,8 +46,9 @@
     </section>
   </main>
 
+  <script src="/scripts/fetch-with-timeout.js"></script>
   <script>
-    fetch('https://stream.rush.berlin/api/v0.2/streams/')
+    fetchWithTimeout('https://stream.rush.berlin/api/v0.2/streams/', 4000)
       .then(res => res.json())
       .then(out => {
         for (let stream of out.streams) {
