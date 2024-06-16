@@ -45,7 +45,7 @@
       }, 2000);
     }
 
-    fetchWithTimeout('https://stream.rush.berlin/api/v0.2/streams/', { timeout: 4000 })
+    fetchWithTimeout('https://stream.rush.berlin/api/v0.2/streams/', { timeout: 10000 })
       .then(res => res.json())
       .then(out => {
         for (let stream of out.streams) {
