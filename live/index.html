@@ -33,9 +33,39 @@
     </div>
   </main>
 
-  <script src="/scripts/stream-observer.js"></script>
-  <script>
-    const goHome = () => {
+  <script type="module">
+    import { StreamObserver } from '/scripts/stream-observer.js';
+
+    let waitingForStream = false;
+    let redirectTimeout = 0;
+    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/');
+
+    function onUpdate() {
+      const isStreamActive = streamObserver.isActive('stream');
+      updateUI(isStreamActive);
+
+      if (!waitingForStream && !isStreamActive) {
+        waitingForStream = true;
+        streamObserver.setUpdateInterval(500);
+        redirectTimeout = setTimeout(() => {
+          goHome();
+        }, 10000)
+      } else if (waitingForStream && isStreamActive) {
+        waitingForStream = false;
+        streamObserver.setUpdateInterval(10000)
+        clearTimeout(redirectTimeout);
+      }
+    }
+
+    streamObserver.addEventListener('update', onUpdate);
+    onUpdate();
+
+    function updateUI(isStreamActive) {
+      document.getElementById('loader').hidden = isStreamActive;
+      document.getElementById('livestream').hidden = !isStreamActive;
+    }
+
+    function goHome() {
       document.getElementById('main').innerHTML = `
         <p style="margin-top: 2rem; text-align: center;">No stream found. Redirecting...</p>
       `;
@@ -43,30 +73,6 @@
       setTimeout(() => {
         window.location.replace('/');
       }, 4000);
-    }
-
-    let waitingForStream = false;
-    let redirectTimeout = 0;
-    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 1000, 60000);
-
-    streamObserver.addEventListener('update', () => {
-      const isStreamActive = streamObserver.isActive('stream');
-      updateUI(isStreamActive);
-
-      if (!waitingForStream && !isStreamActive) {
-        waitingForStream = true;
-        redirectTimeout = setTimeout(() => {
-          goHome();
-        }, 8000)
-      } else if (waitingForStream && isStreamActive) {
-        waitingForStream = false;
-        clearTimeout(redirectTimeout);
-      }
-    });
-
-    function updateUI(isStreamActive) {
-      document.getElementById('loader').hidden = isStreamActive;
-      document.getElementById('livestream').hidden = !isStreamActive;
     }
   </script>
 </body>

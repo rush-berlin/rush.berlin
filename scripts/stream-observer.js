@@ -1,19 +1,4 @@
-"use strict";
-
-async function fetchWithTimeout(url, options = {}) {
-  const { timeout = 8000 } = options;
-
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeout);
-
-  const response = await fetch(url, {
-    ...options,
-    signal: controller.signal,
-  });
-  clearTimeout(id);
-
-  return response;
-}
+import { fetchWithTimeout } from "./fetch-with-timeout.js";
 
 function areStreamListsEquivalent(list1, list2) {
   if (list1.length !== list2.length) {
@@ -31,17 +16,16 @@ function areStreamListsEquivalent(list1, list2) {
   );
 }
 
-class StreamObserver extends EventTarget {
+export class StreamObserver extends EventTarget {
   streams = [];
 
-  constructor(url, interval = 60000, timeout = 1000) {
+  constructor(url, timeout = 1000, interval = 10000) {
     super();
 
     this.url = url;
     this.timeout = timeout;
-
+    this.interval = setInterval(this.updateStreams, interval);
     this.updateStreams();
-    setInterval(this.updateStreams, interval);
   }
 
   updateStreams = () => {
@@ -52,7 +36,7 @@ class StreamObserver extends EventTarget {
       })
       .catch((err) => {
         console.error(err);
-        this.updateStreamList();
+        this.updateStreamList([]);
       });
   };
 
@@ -61,6 +45,12 @@ class StreamObserver extends EventTarget {
       this.streams = newStreams;
       this.dispatchStreamUpdate();
     }
+  };
+
+  setUpdateInterval = (newInterval) => {
+    clearInterval(this.interval);
+    this.interval = setInterval(this.updateStreams, newInterval);
+    this.updateStreams();
   };
 
   isActive = (streamName) => {
