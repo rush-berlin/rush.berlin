@@ -9,77 +9,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
   <link rel="manifest" href="../assets/site.webmanifest">
-
-  <link rel="stylesheet" href="../style.css">
-
-  <title>Rush Berlin - Live</title>
 </head>
 
 <body>
-  <nav>
-    <h1>
-      <a href="/">
-        <img src="../assets/logo.png" alt="Rush Logo" srcset="" height="100px">
-      </a>
-    </h1>
-  </nav>
-
-  <main id="main">
-    <section>
-      <h2>Rush Livestream</h2>
-      <div class="stream-wrapper">
-        <div id="loader"></div>
-        <iframe id="livestream" hidden src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true"
-          webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-      </div>
-    </section>
-  </main>
-
-  <script type="module">
-    import { StreamObserver } from '/scripts/stream-observer.js';
-
-    let waitingForStream = false;
-    let redirectTimeout = 0;
-    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/');
-
-    function onUpdate() {
-      const isStreamActive = streamObserver.isActive('stream');
-      updateUI(isStreamActive);
-
-      if (!waitingForStream && !isStreamActive) {
-        waitingForStream = true;
-        streamObserver.setUpdateInterval(500);
-        redirectTimeout = setTimeout(() => {
-          goHome();
-        }, 10000)
-      } else if (waitingForStream && isStreamActive) {
-        waitingForStream = false;
-        streamObserver.setUpdateInterval(10000)
-        clearTimeout(redirectTimeout);
-      }
-    }
-
-    streamObserver.addEventListener('update', onUpdate);
-    onUpdate();
-
-    function updateUI(isStreamActive) {
-      document.getElementById('loader').hidden = isStreamActive;
-      document.getElementById('livestream').hidden = !isStreamActive;
-
-      if (isStreamActive) {
-        document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
-      }
-    }
-
-    function goHome() {
-      document.getElementById('main').innerHTML = `
-        <p style="margin-top: 2rem; text-align: center;">No stream found. Redirecting...</p>
-      `;
-
-      setTimeout(() => {
-        window.location.replace('/');
-      }, 4000);
-    }
+  <script>
+    window.location.replace('/');
   </script>
 </body>
 
