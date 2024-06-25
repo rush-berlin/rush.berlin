@@ -17,6 +17,7 @@ function areStreamListsEquivalent(list1, list2) {
 }
 
 export class StreamObserver extends EventTarget {
+  retryCount = 0;
   streams = [];
 
   constructor(url, timeout = 1000, interval = 10000) {
@@ -38,6 +39,11 @@ export class StreamObserver extends EventTarget {
       .catch((err) => {
         console.error(err);
         this.updateStreamList([]);
+      })
+      .finally(() => {
+        if (this.timeout < 60000 && this.retryCount > 100) {
+          this.setUpdateInterval(60000);
+        }
       });
   };
 
@@ -50,6 +56,7 @@ export class StreamObserver extends EventTarget {
   };
 
   setUpdateInterval = (newInterval) => {
+    this.retryCount = 0;
     clearInterval(this.interval);
     this.interval = setInterval(this.updateStreams, newInterval);
     this.updateStreams();
