@@ -46,6 +46,11 @@ body {
   font-family: 'Orbitron', sans-serif;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 nav, main {
   width: 100vw;
   max-width: 800px;
@@ -61,9 +66,28 @@ nav {
   background-color: var(--yellow);
   animation: breathe 2s linear 2s infinite alternate none;
   display: flex;
-  justify-content: center;
-  padding: 1rem 0;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0 0.25rem 0;
   border-radius: 0 0 .5rem .5rem;
+}
+
+nav a, nav a:visited {
+  color: var(--black);
+}
+
+nav ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  justify-content: space-evenly;
+}
+
+nav ul li {
+  display: flex;
+  flex-direction: row;
 }
 
 section {
@@ -71,20 +95,19 @@ section {
 }
 
 /* list styles */
-ul {
-  list-style-type: none;
+main ul {
   width: 100vw;
   max-width: 800px;
   margin: 1rem 0;
   padding: 0;
 }
 
-ul li:not(:first-child) {
+main ul li:not(:first-child) {
   margin: .5rem 0;
 }
 
-ul li > a,
-ul li article {
+main ul li > a,
+main ul li article {
   position: relative;
   display: block;
   width: inherit;
@@ -95,8 +118,8 @@ ul li article {
   text-decoration-color: var(--black-fade);
 }
 
-ul li > a:hover,
-ul li > a:focus {
+main ul li > a:hover,
+main ul li > a:focus {
   background-color: var(--yellow);
   text-decoration-color: var(--black);
 }
@@ -134,12 +157,12 @@ to {
   }
 }
 
-ul li article {
+main ul li article {
   display: flex;
   flex-direction: column;
 }
 
-ul li article > div {
+main ul li article > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -151,7 +174,7 @@ ul li article > div {
   100% {opacity: 0.4;}
 }
 
-ul li article.loading {
+main ul li article.loading {
   animation: loading 1s linear 0s infinite alternate none;
 }
 
