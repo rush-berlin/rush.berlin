@@ -35,7 +35,7 @@
   </nav>
 
   <main>
-    <section id="stream-wrapper">
+    <section id="stream-wrapper" hidden>
       <div class="livestream-header">
         <h2>Rush Livestream</h2>
         <div class="live-indicator-holder">
@@ -46,8 +46,9 @@
       </div>
 
       <div class="stream-wrapper">
-        <iframe src="https://stream.rush.berlin/embed/video" title="Rush Live Stream" referrerpolicy="origin"
-          frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
+        <iframe id="stream-embed" src="https://stream.rush.berlin/embed/video" title="Rush Live Stream"
+          referrerpolicy="origin" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true"
+          mozallowfullscreen="true">
         </iframe>
       </div>
     </section>
@@ -77,6 +78,22 @@
   </main>
 
   <script src="/scripts/redirect.js"></script>
+
+  <script>
+    const streamWrapper = document.getElementById('stream-wrapper');
+    window.addEventListener('stream-start', event => {
+      console.log(event);
+      if (event.origin === 'https://stream.rush.berlin') {
+        streamWrapper.hidden = false;
+      }
+    }, false);
+    window.addEventListener('stream-stop', event => {
+      console.log(event);
+      if (event.origin === 'https://stream.rush.berlin') {
+        streamWrapper.hidden = true;
+      }
+    }, false);
+  </script>
 
 </body>
 
