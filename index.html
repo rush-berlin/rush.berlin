@@ -46,8 +46,10 @@
       </div>
 
       <div class="stream-wrapper">
-        <iframe id="livestream" src="https://stream.rush.berlin" frameborder="0" allowfullscreen="true"
-          webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+        <iframe src="https://stream.rush.berlin/embed/video" title="Rush Live Stream" height="350px" width="550px"
+          referrerpolicy="origin" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true"
+          mozallowfullscreen="true">
+        </iframe>
       </div>
     </section>
     <section>
@@ -74,27 +76,6 @@
       </ul>
     </section>
   </main>
-
-  <script type="module">
-    import { StreamObserver } from '/scripts/stream-observer.js';
-    const streamObserver = new StreamObserver('https://stream.rush.berlin/api/v0.2/streams/', 500, 2000);
-
-    streamObserver.addEventListener('update', () => {
-      const isStreamActive = streamObserver.isActive('stream');
-      document.getElementById('stream-wrapper').hidden = !isStreamActive;
-      if (isStreamActive) {
-        document.getElementById('livestream').contentWindow.postMessage('reload', 'https://stream.rush.berlin');
-      }
-      streamObserver.setUpdateInterval(isStreamActive ? 30000 : 2000);
-    });
-
-    window.addEventListener('message', event => {
-      console.log(event);
-      if (event.origin === 'https://stream.rush.berlin') {
-        streamObserver.setUpdateInterval(500);
-      }
-    }, false);
-  </script>
 
   <script src="/scripts/redirect.js"></script>
 
