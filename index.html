@@ -81,24 +81,14 @@
   <script>
     const streamWrapper = document.getElementById('stream-wrapper');
     window.addEventListener('message', event => {
-      console.log(event);
       if (event.origin === 'https://stream.rush.berlin') {
-        streamWrapper.classList.remove('hidden');
-        streamWrapper.removeAttribute('tab-index');
-      }
-    }, false);
-    window.addEventListener('stream-start', event => {
-      console.log(event);
-      if (event.origin === 'https://stream.rush.berlin') {
-        streamWrapper.classList.remove('hidden');
-        streamWrapper.removeAttribute('tab-index');
-      }
-    }, false);
-    window.addEventListener('stream-stop', event => {
-      console.log(event);
-      if (event.origin === 'https://stream.rush.berlin') {
-        streamWrapper.classList.add('hidden');
-        streamWrapper.setAttribute('tab-index', -1);
+        if (event.data === 'stream-start') {
+          streamWrapper.classList.remove('hidden');
+          streamWrapper.removeAttribute('tab-index');
+        } else if (event.data === 'stream-stop') {
+          streamWrapper.classList.add('hidden');
+          streamWrapper.setAttribute('tab-index', -1);
+        }
       }
     }, false);
   </script>
