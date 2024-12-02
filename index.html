@@ -80,9 +80,15 @@
 
   <script>
     const streamWrapper = document.getElementById('stream-wrapper');
+    let iframeInit = false;
+
     window.addEventListener('message', event => {
       if (event.origin === 'https://stream.rush.berlin') {
-        if (event.data === 'stream-start') {
+        if (event.data === 'iframe-ping') {
+          iframeInit = true;
+          streamWrapper.contentWindow.postMessage('iframe-pong', 'https://rush.berlin')
+        }
+        else if (event.data === 'stream-start') {
           streamWrapper.classList.remove('hidden');
           streamWrapper.removeAttribute('tab-index');
         } else if (event.data === 'stream-stop') {
@@ -91,6 +97,14 @@
         }
       }
     }, false);
+
+    let reload = setInterval(function () {
+      if (iframeInit) {
+        clearInterval(reload)
+      } else {
+        streamWrapper.contentWindow.location.reload();
+      }
+    }, 1000)
   </script>
 
 </body>
