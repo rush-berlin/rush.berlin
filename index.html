@@ -80,6 +80,13 @@
 
   <script>
     const streamWrapper = document.getElementById('stream-wrapper');
+    window.addEventListener('message', event => {
+      console.log(event);
+      if (event.origin === 'https://stream.rush.berlin') {
+        streamWrapper.classList.remove('hidden');
+        streamWrapper.removeAttribute('tab-index');
+      }
+    }, false);
     window.addEventListener('stream-start', event => {
       console.log(event);
       if (event.origin === 'https://stream.rush.berlin') {
