@@ -35,7 +35,7 @@
   </nav>
 
   <main>
-    <section id="stream-wrapper">
+    <section id="stream-wrapper" class="hidden" tabindex="-1">
       <div class="livestream-header">
         <h2>Rush Livestream</h2>
         <div class="live-indicator-holder">
@@ -84,13 +84,15 @@
     window.addEventListener('stream-start', event => {
       console.log(event);
       if (event.origin === 'https://stream.rush.berlin') {
-        streamWrapper.hidden = false;
+        streamWrapper.classList.remove('hidden');
+        streamWrapper.removeAttribute('tab-index');
       }
     }, false);
     window.addEventListener('stream-stop', event => {
       console.log(event);
       if (event.origin === 'https://stream.rush.berlin') {
-        streamWrapper.hidden = true;
+        streamWrapper.classList.add('hidden');
+        streamWrapper.setAttribute('tab-index', -1);
       }
     }, false);
   </script>

@@ -218,7 +218,13 @@ aside {
   }
 }
 
-/* / iframe styles */
+/* stream-wrapper styles */
+#stream-wrapper.hidden {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
 .livestream-header {
   display: flex;
   justify-content: space-between;
