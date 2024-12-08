@@ -201,6 +201,7 @@ aside {
 }
 
 .stream-wrapper iframe {
+  border-top: 1rem solid black;
   position: absolute;
   top: 0;
   left: 0;
