@@ -76,11 +76,12 @@
   <script src="/scripts/ping.js"></script>
 
   <script>
+    let initialized = false;
+
     const src = "https://stream.rush.berlin/";
 
     pingStream();
     function pingStream() {
-      let initialized = false;
       ping(src).then(function () {
         if (!initialized) {
           initialized = true;
