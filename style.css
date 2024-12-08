@@ -196,13 +196,18 @@ aside {
   border-radius: 0 0 0.25rem 0.25rem;
 
   position: relative;
-  padding-top: 56.25%;
+  padding-top: 57.25%;
   overflow: hidden;
+}
+
+@media screen and (max-width: 759px) {
+  .stream-wrapper {
+    padding-top: calc(60% + 0.5vw);
+  }
 }
 
 .stream-wrapper iframe {
   border: 0;
-  border-top: 1rem solid black;
   position: absolute;
   top: 0;
   left: 0;
