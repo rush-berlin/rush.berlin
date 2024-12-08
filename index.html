@@ -80,36 +80,53 @@
 
     pingStream();
     function pingStream() {
-      ping(src).then(function (delta) {
-        console.log({ delta })
-        initIframe()
+      let initialized = false;
+      ping(src).then(function () {
+        if (!initialized) {
+          initialized = true;
+          initIframe()
+        }
       }).catch(function () {
-        setTimeout(function () {
-          pingStream()
-        }, 5000);
+        if (initialized) {
+          initialized = false;
+          tearDownIframe();
+        }
+      }).finally(function () {
+        setTimeout(pingStream, 5000);
       });
     }
 
-    function initIframe() {
-      const streamWrapper = document.getElementById('stream-wrapper');
-      const iframe = streamWrapper.querySelector('iframe');
+    const streamWrapper = document.getElementById('stream-wrapper');
+    const iframe = streamWrapper.querySelector('iframe');
 
-      window.addEventListener('message', event => {
-        if (event.origin === 'https://stream.rush.berlin') {
-          if (event.data === 'iframe-ping') {
-            iframe.contentWindow.postMessage('iframe-pong', 'https://stream.rush.berlin')
-          }
-          else if (event.data === 'stream-start') {
-            streamWrapper.classList.remove('hidden');
-            streamWrapper.removeAttribute('tab-index');
-          } else if (event.data === 'stream-stop') {
-            streamWrapper.classList.add('hidden');
-            streamWrapper.setAttribute('tab-index', -1);
-          }
+    function onMessageFromIframe(event) {
+      if (event.origin === 'https://stream.rush.berlin') {
+        if (event.data === 'iframe-ping') {
+          iframe.contentWindow.postMessage('iframe-pong', 'https://stream.rush.berlin')
         }
-      }, false);
+        else if (event.data === 'stream-start') {
+          streamWrapper.classList.remove('hidden');
+          streamWrapper.removeAttribute('tab-index');
+        } else if (event.data === 'stream-stop') {
+          streamWrapper.classList.add('hidden');
+          streamWrapper.setAttribute('tab-index', -1);
+        }
+      }
+    }
+
+    function initIframe() {
+      window.addEventListener('message', onMessageFromIframe, false);
 
       iframe.src = src;
+    }
+
+    function tearDownIframe() {
+      window.removeEventListener('message', onMessageFromIframe);
+
+      iframe.src = '';
+
+      streamWrapper.classList.add('hidden');
+      streamWrapper.setAttribute('tab-index', -1);
     }
   </script>
 
