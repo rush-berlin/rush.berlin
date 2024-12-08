@@ -99,7 +99,7 @@
       window.addEventListener('message', event => {
         if (event.origin === 'https://stream.rush.berlin') {
           if (event.data === 'iframe-ping') {
-            streamWrapper.querySelector('iframe').contentWindow.postMessage('iframe-pong', 'https://stream.rush.berlin')
+            iframe.contentWindow.postMessage('iframe-pong', 'https://stream.rush.berlin')
           }
           else if (event.data === 'stream-start') {
             streamWrapper.classList.remove('hidden');
