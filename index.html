@@ -46,8 +46,8 @@
       </div> -->
 
       <div class="stream-wrapper">
-        <iframe id="stream-embed" src="https://stream.rush.berlin/" title="Rush Live Stream" referrerpolicy="origin"
-          allow="fullscreen" sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+        <iframe id="stream-embed" title="Rush Live Stream" referrerpolicy="origin" allow="fullscreen"
+          sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
       </div>
     </section>
     <section>
@@ -76,34 +76,43 @@
   </main>
 
   <script src="/scripts/redirect.js"></script>
+  <script src="/scripts/ping.js"></script>
 
   <script>
-    const streamWrapper = document.getElementById('stream-wrapper');
-    let iframeInit = false;
+    const src = "https://stream.rush.berlin/";
 
-    window.addEventListener('message', event => {
-      if (event.origin === 'https://stream.rush.berlin') {
-        if (event.data === 'iframe-ping') {
-          iframeInit = true;
-          streamWrapper.querySelector('iframe').contentWindow.postMessage('iframe-pong', 'https://stream.rush.berlin')
-        }
-        else if (event.data === 'stream-start') {
-          streamWrapper.classList.remove('hidden');
-          streamWrapper.removeAttribute('tab-index');
-        } else if (event.data === 'stream-stop') {
-          streamWrapper.classList.add('hidden');
-          streamWrapper.setAttribute('tab-index', -1);
-        }
-      }
-    }, false);
+    function pingStream() {
+      ping(src).then(function (delta) {
+        console.log({ delta })
+        initIframe()
+      }).catch(function () {
+        setTimeout(function () {
+          pingStream()
+        }, 5000);
+      });
+    }
 
-    let reload = setInterval(function () {
-      if (iframeInit) {
-        clearInterval(reload)
-      } else {
-        streamWrapper.src += '';
-      }
-    }, 1000)
+    function initIframe() {
+      const streamWrapper = document.getElementById('stream-wrapper');
+      const iframe = streamWrapper.querySelector('iframe');
+
+      window.addEventListener('message', event => {
+        if (event.origin === 'https://stream.rush.berlin') {
+          if (event.data === 'iframe-ping') {
+            streamWrapper.querySelector('iframe').contentWindow.postMessage('iframe-pong', 'https://stream.rush.berlin')
+          }
+          else if (event.data === 'stream-start') {
+            streamWrapper.classList.remove('hidden');
+            streamWrapper.removeAttribute('tab-index');
+          } else if (event.data === 'stream-stop') {
+            streamWrapper.classList.add('hidden');
+            streamWrapper.setAttribute('tab-index', -1);
+          }
+        }
+      }, false);
+
+      iframe.src = src;
+    }
   </script>
 
 </body>
