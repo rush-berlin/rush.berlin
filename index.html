@@ -74,6 +74,7 @@
   <script>
     const src = "https://stream.rush.berlin/";
 
+    pingStream();
     function pingStream() {
       ping(src).then(function (delta) {
         console.log({ delta })
