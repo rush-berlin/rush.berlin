@@ -152,39 +152,6 @@ main ul li > a:focus {
   text-decoration-color: var(--black);
 }
 
-.circle {
-  width: 15px;
-  height: 15px;
-  background: white;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
-}
-
-.live-indicator-holder .indicator {
-  font-family: sans-serif;
-  background: #ea2429;
-  color: #fff;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
-  text-transform: uppercase;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-}
-
-.live-indicator-holder .indicator .blink {
-  animation: blinker 1.2s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
-}
-@keyframes blinker {
-  from {
-    opacity: 0.9;
-  }
-  to {
-    opacity: 0.1;
-  }
-}
-
 main ul li article {
   display: flex;
   flex-direction: column;
@@ -194,22 +161,6 @@ main ul li article > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-@keyframes loading {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0.4;
-  }
-}
-
-main ul li article.loading {
-  animation: loading 1s linear 0s infinite alternate none;
 }
 
 aside {
@@ -256,23 +207,4 @@ aside {
   border: 0;
   width: 100%;
   height: 100%;
-}
-
-#loader {
-  width: 20px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #000;
-  box-shadow: 0 0 0 0 #0004;
-  animation: l1 1s infinite;
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@keyframes l1 {
-  100% {
-    box-shadow: 0 0 0 30px #0000;
-  }
 }
